@@ -4,28 +4,32 @@ services:
     container_name: node-backend
     build: .
     environment:
-      PORT: 443
+      PG_CONNECTION_STRING: "postgres://postgres:password@db"
+      DEBUG: "*"
     ports:
       - 443:443
-    links:
-      - postgres
     deploy:
       restart_policy:
         condition: on-failure
-        delay: 1s
+        delay: 5s
       resources:
         limits:
           memory: 256M
         reservations:
           memory: 256M
-  postgresql:
+  db:
     container_name: postgres-database
-    image: postgres
+    image: postgres:13.4-alpine
     environment:
-      POSTGRES_HOST_AUTH_METHOD: trust
+      POSTGRES_PASSWORD: password
     deploy:
       resources:
         limits:
           memory: 256M
         reservations:
           memory: 256M
+  # admin panel for database
+  adminer:
+    image: adminer
+    ports:
+      - 8080:8080
