@@ -3,15 +3,11 @@ FROM node:alpine AS builder
 
 WORKDIR /app
 
-COPY ./package.json ./
-COPY ./yarn.lock ./
+COPY ./package.json ./yarn.lock ./tsconfig.json *.pem ./
 RUN yarn
 
-COPY ./tsconfig.json ./
 COPY ./src ./src
 RUN yarn build
-
-COPY *.pem ./
 
 # runner
 FROM node:alpine
