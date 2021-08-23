@@ -26,7 +26,7 @@ async function startApollo(app: Application) {
     app
   });
 
-  console.log(`Apollo playground: https://0.0.0.0${server.graphqlPath} 🦄`);
+  console.log(`Apollo started: https://0.0.0.0${server.graphqlPath} 🦄`);
 }
 
 https.createServer(options, app).listen(443, () => console.log('Server started 🚀'));
