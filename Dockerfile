@@ -3,7 +3,7 @@ FROM node:alpine AS builder
 
 WORKDIR /app
 
-COPY ./package.json ./yarn.lock ./tsconfig.json *.pem ./
+COPY ./package.json ./yarn.lock ./tsconfig.json ./
 RUN yarn
 
 COPY ./src ./src

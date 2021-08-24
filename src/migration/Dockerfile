@@ -6,7 +6,7 @@ WORKDIR /app
 COPY ./package.json ./yarn.lock ./tsconfig.json ./
 RUN yarn
 
-COPY ./src/migration ./
+COPY ./src/migration ./src/migration
 RUN yarn build
 
 # runner
