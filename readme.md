@@ -38,3 +38,4 @@
   - [ ] Migration
 - [ ] BFF
 - [ ] Developing process
+- [ ] Draw architecture image
