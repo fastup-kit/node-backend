@@ -7,4 +7,6 @@ const database = new Database({
 
 export const dataSources = () => ({
   database
-})
+});
+
+export type DataSources = ReturnType<typeof dataSources>;

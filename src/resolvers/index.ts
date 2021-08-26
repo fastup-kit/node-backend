@@ -1,35 +1,29 @@
-import { books } from "../dataset";
-import type { IResolvers } from "@graphql-tools/utils";
-import { Book } from "../data-sources/types";
+import { DataSources } from "../data-sources";
+import { Resolvers } from "../generated/graphql";
 
-export const resolvers: IResolvers = {
+export const resolvers: Resolvers<{ dataSources: DataSources }> = {
   Query: {
-    books: (parent, args, context, info) => books,
+    books: (parent, args, { dataSources: { database }}) => {
+      return database.getBooks();
+    },
   },
   Mutation: {
-    addBook: (parent, args, { dataSources }, info) => {
-      console.log('-'.repeat(100));
-      console.log({parent, args, info});
-
+    addBook: async (parent, args, { dataSources: { database }}) => {
       const book = {
-        id: Math.random().toString(),
         author: args.author,
         title: args.title
       };
-      books.push(book);
-      return book;
-    },
-    updateBook: (parent, { author, title, id }, context, info) => {
-      const index = books.findIndex(book => book.id === id);
+      const resultBooks = await database.addBooks([book]);
 
-      books[index].author = author;
-      books[index].title = title;
-
-      return books[index];
+      return resultBooks[0];
     },
-    deleteBook: (parent, { id }, context, info) => {
-      books.splice(books.findIndex(book => book.id === id), 1);
-      return id;
+    updateBook: async (parent, book, { dataSources: { database }}) => {
+      const resultBooks = await database.updateBook(book);
+      return resultBooks[0];
+    },
+    deleteBook: async (parent, { id }, { dataSources: { database } }) => {
+      const resultIds = await database.deleteBook(id);
+      return resultIds[0]
     }
   },
 };
