@@ -8,7 +8,8 @@
   "scripts": {
     "start": "cross-env NODE_OPTIONS=--enable-source-maps node build/index",
     "build": "tsc",
-    "migration": "cross-env NODE_OPTIONS=--enable-source-maps knex migrate:latest --knexfile build/knexfile.js"
+    "migration": "cross-env NODE_OPTIONS=--enable-source-maps knex migrate:latest --knexfile build/knexfile.js",
+    "codegen": "graphql-codegen --config codegen.yml"
   },
   "dependencies": {
     "apollo-server": "3.1.2",
@@ -22,7 +23,11 @@
     "typescript": "4.3.5"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "2.1.1",
     "apollo": "2.33.6",
-    "cross-env": "7.0.3"
+    "cross-env": "7.0.3",
+    "@graphql-codegen/typescript": "2.1.2",
+    "@graphql-codegen/typescript-resolvers": "2.1.2",
+    "@graphql-codegen/introspection": "2.1.0"
   }
 }
