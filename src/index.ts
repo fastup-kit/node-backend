@@ -20,7 +20,7 @@ async function startApollo(app: Application) {
     app
   });
 
-  console.log(`Apollo started: https://0.0.0.0${server.graphqlPath} 🦄`);
+  console.log(`Apollo started: http://0.0.0.0${server.graphqlPath} 🦄`);
 }
 
 http.createServer(app).listen(80, () => console.log('Server started 🚀'));
