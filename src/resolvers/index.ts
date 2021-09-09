@@ -1,4 +1,4 @@
-import { DataSources } from "../data-sources";
+import { DataSources } from "../datasources";
 import { Resolvers } from "../generated/graphql";
 
 export const resolvers: Resolvers<{ dataSources: DataSources }> = {

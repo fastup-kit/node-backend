@@ -4,7 +4,7 @@ import { ApolloServer } from 'apollo-server-express'
 import { typeDefs } from './schema';
 import { resolvers } from './resolvers';
 import { plugins } from './plugins';
-import { dataSources } from './data-sources';
+import { dataSources } from './datasources';
 
 const app = express()
 
