@@ -8,7 +8,6 @@
   "scripts": {
     "start": "cross-env NODE_OPTIONS=--enable-source-maps node build/index",
     "build": "tsc",
-    "migration": "cross-env NODE_OPTIONS=--enable-source-maps knex migrate:latest --knexfile build/knexfile.js",
     "codegen": "graphql-codegen --config codegen.yml"
   },
   "dependencies": {
