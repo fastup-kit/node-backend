@@ -1,7 +1,11 @@
 import { DataSources } from "../datasources";
+import { GraphQLUpload } from "graphql-upload";
 import { Resolvers } from "../generated/graphql";
+import { createContext } from "../context";
 
-export const resolvers: Resolvers<{ dataSources: DataSources }> = {
+export const resolvers: Resolvers<{ dataSources: DataSources } & ReturnType<typeof createContext>> = {
+  Upload: GraphQLUpload,
+
   Query: {
     books: (parent, args, { dataSources: { database }}) => {
       return database.getBooks();
@@ -14,7 +18,6 @@ export const resolvers: Resolvers<{ dataSources: DataSources }> = {
         title: args.title
       };
       const resultBooks = await database.addBooks([book]);
-
       return resultBooks[0];
     },
     updateBook: async (parent, book, { dataSources: { database }}) => {
@@ -23,7 +26,7 @@ export const resolvers: Resolvers<{ dataSources: DataSources }> = {
     },
     deleteBook: async (parent, { id }, { dataSources: { database } }) => {
       const resultIds = await database.deleteBook(id);
-      return resultIds[0]
+      return resultIds[0] || null;
     }
   },
 };

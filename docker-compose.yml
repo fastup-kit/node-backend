@@ -7,8 +7,6 @@ services:
       PG_CONNECTION_STRING: "postgres://pg:qwe@db/db"
       DEBUG: "*"
       # NODE_ENV: "production"
-    ports:
-      - 80:80
     depends_on:
       - db
     deploy:
@@ -46,6 +44,26 @@ services:
       - 8080:8080
     networks:
       - app
+  reverse-proxy:
+    build:
+      context: https://github.com/fastup-kit/reverse-proxy.git#main
+    ports:
+      - 3000:80
+    environment:
+      NGINX_ENTRYPOINT_QUIET_LOGS: 1
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+      resources:
+        limits:
+          memory: 128M
+        reservations:
+          memory: 128M
+    networks:
+      - app
+    depends_on:
+      - backend
 networks:
   app:
     name: app
